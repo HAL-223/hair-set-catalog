@@ -1,7 +1,12 @@
 @charset "utf-8";
 
+.alert-danger {
+  list-style: none;
+}
+
+/* 
 .flex-col-area {
   text-align: center;
-  /* display: flex;
-  flex-direction: column; */
-}
+  display: flex;
+  flex-direction: column;
+} */
