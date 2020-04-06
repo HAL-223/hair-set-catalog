@@ -4,9 +4,6 @@
   list-style: none;
 }
 
-/* 
-.flex-col-area {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-} */
+ul {
+  list-style: none;
+}
