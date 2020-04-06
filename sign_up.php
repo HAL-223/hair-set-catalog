@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="card-body">
               <h5 class="card-title text-center">アカウント登録</h5>
               <?php if ($errors) : ?>
-                <ul class="alert alert-danger">
+                <ul class="alert-danger">
                   <?php foreach ($errors as $error) : ?>
                     <li><?php echo $error; ?></li>
                   <?php endforeach; ?>
