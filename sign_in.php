@@ -6,10 +6,7 @@ require_once('functions.php');
 session_start();
 $dbh = connectDb();
 
-// if ($_SESSION['id']) {
-//   header('Location: index.php');
-//   exit;
-// }
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $email = $_POST['email'];
@@ -34,11 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (password_verify($password, $user['password'])) {
       $_SESSION['id'] = $user['id'];
-      $url = $_SERVER['HTTP_REFERER'];
-      header('Location:' . $url);
-      exit;
+      if ($_SESSION['id']) {
+        header('Location: index.php');
+        exit;
+      }
     } else {
-      $errors[] = 'メールアドレスが間違っています';
+      $errors[] = 'メールアドレスパスワードが間違っています';
     }
   }
 }
@@ -61,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
   <div class="flex-col-area">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
-      <a href="http://localhost/19_blog_system/index.php" class="navbar-brand">Camp Blog</a>
+      <a href="http://localhost/index.php" class="navbar-brand">ヘアセットカタログ</a>
       <div class="collapse navbar-collapse" id="navbarToggle">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
           <?php if ($_SESSION['id']) : ?>

@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
   <div class="flex-col-area">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
-      <a href="http://localhost/hairset_app/index.php" class="navbar-brand">hair set
+      <a href="http://localhost/index.php" class="navbar-brand">hair set
         catalog</a>
     </nav>
     <div class="container">
