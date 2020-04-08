@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
   <div class="flex-col-area">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
-      <a href="http://localhost/index.php" class="navbar-brand">ヘアセットカタログ</a>
+      <a href="http://localhost/index.php" class="navbar-brand">Hair set style</a>
       <div class="collapse navbar-collapse" id="navbarToggle">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
           <?php if ($_SESSION['id']) : ?>
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <div class="card-body">
             <h5>ログイン</h5>
             <?php if ($errors) : ?>
-              <ul>
+              <ul class="alert">
                 <?php foreach ($errors as $error) : ?>
                   <li><?php echo $error; ?></li>
                 <?php endforeach; ?>
