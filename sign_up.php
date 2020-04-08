@@ -47,27 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     header('Location: sign_in.php');
     exit;
-    // if (empty($errors)) {
-    //   $sql = <<<SQL 
-    //   INSERT INTO
-    //     users
-    //   (
-    //     email,
-    //     name,
-    //     password,
-    //     created_at,
-    //     updated_at
-    //   )
-    //   VALUES
-    //   (
-    //     :email,
-    //     :name,
-    //     :password,
-    //     now();
-    //     now()
-    //   )
-    //   SQL;
-    //   $stmt = $dbh->prepare($sql);
   }
 }
 ?>
@@ -78,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>サインアップ画面</title>
+  <title>アカウント登録</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -90,8 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
   <div class="flex-col-area">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
-      <a href="http://localhost/hairset_app/index.php" class="navbar-brand">hair set
-        catalog</a>
+      <a href="http://localhost/index.php" class="navbar-brand">Hair set style</a>
     </nav>
     <div class="container">
       <div class="row">
@@ -100,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="card-body">
               <h5 class="card-title text-center">アカウント登録</h5>
               <?php if ($errors) : ?>
-                <ul class="alert-danger">
+                <ul class="alert">
                   <?php foreach ($errors as $error) : ?>
                     <li><?php echo $error; ?></li>
                   <?php endforeach; ?>
