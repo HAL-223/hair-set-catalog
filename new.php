@@ -10,6 +10,57 @@ $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $category_id = $_POST['category_id'];
+  $user_id = $_POST['id'];
+  $image = $_POST['image'];
+  $body = $_POST['body'];
+
+  $errors = [];
+
+  if ($category_id == '') {
+    $errors[] = 'カテゴリーが未選択です';
+  }
+
+  if ($image) {
+    $ext = substr($image, -4);
+    if ($ext == '.gif' || $ext == '.jpg' || $ext == '.png') {
+      $filePath = './style_img/' . $file['name'];
+      $success = move_uploaded_file($file['tmp_name'], $filePath);
+    }
+  } else {
+    $errors[] = '画像アップロードに失敗しました';
+  }
+
+  if (empty($errors)) {
+    $sql = <<<SQL
+    insert into
+    styles
+    (
+      category_id,
+      user_id,
+      image,
+      body
+    )
+    values
+    (
+      :category_id,
+      :user_id,
+      :image,
+      :body
+    )
+    SQL;
+    $stmt = $dbh->prepare($sql);
+
+    $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+    $stmt->bindParam(':body', $body, PDO::PARAM_STR);
+    $stmt->execute();
+  }
+  header("Location: show.php?id={$id}");
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -55,6 +106,13 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <div class="card my-5">
             <div class="card-body">
               <h5 class="card-title text-center">New Post</h5>
+              <?php if ($errors) : ?>
+                <ul class="alert">
+                  <?php foreach ($errors as $error) : ?>
+                    <li><?php echo $error; ?></li>
+                  <?php endforeach; ?>
+                </ul>
+              <?php endif; ?>
               <form action="new.php" method="post">
                 <div class="form-group">
                   <input type="file" name="image" id="">
@@ -62,7 +120,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="form-group">
                   <label for="category_id">Category</label>
                   <select name="category_id" class="form-control" required>
-                    <option value='' disabled selectted>選択して下さい</option>
+                    <option value='' disabled selected>選択して下さい</option>
                     <?php foreach ($categories as $c) : ?>
                       <option value="<?php echo h($c['id']); ?>"><?php echo h($c['name']); ?></option>
                     <?php endforeach; ?>
