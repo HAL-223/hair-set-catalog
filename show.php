@@ -5,11 +5,11 @@ require_once('functions.php');
 
 session_start();
 
-// $id = $_GET['id'];
-// if (!is_numeric($id)) {
-//   header('Location: index.php');
-//   exit;
-// }
+$id = $_GET['id'];
+if (!is_numeric($id)) {
+  header('Location: index.php');
+  exit;
+}
 
 $dbh = connectDb();
 
@@ -33,7 +33,7 @@ $stmt->execute();
 
 $style = $stmt->fetch(PDO::FETCH_ASSOC);
 if(empty($style)) {
-  header('Location: index.php');
+  header('Location: show.php');
   exit;
 }
 ?>
@@ -77,21 +77,20 @@ if(empty($style)) {
     <div class="container">
       <div class="row">
         <div class="col-md-11 col-lg-9 mx-auto mt-5">
-          <h2><?php echo h($style['body']); ?></h2>
           <p>
-            Posted date: <?php echo h($style['created_at']); ?></p>
-          <p>Categories: <?php echo h($category['name']); ?></p>
-          <hr>
-          <p>
-            <?php echo nl2br(h($style['body'])); ?>
+            <?php echo h($style['picture']); ?>
           </p>
-          <!-- ログイン済で且つログインしているユーザーのidと記事を登録したユーザーのidが一致している場合 -->
+          <h2><?php echo h($style['body']); ?></h2>
+          <p>Categories: <?php echo h($style['name']); ?></p>
+          <p>Posted date: <?php echo h($style['created_at']); ?></p>
+            <?php echo nl2br(h($style['body'])); ?>
           <?php if (($_SESSION['id']) && ($_SESSION['id'] == $style['user_id'])) : ?>
-            <a href="edit.php?id=<?php echo h($style['id']); ?>" class="btn btn-secondary">編集</a>
+            <a href="edit.php?id=<?php echo h($style['id']); ?>">編集</a>
           <?php endif; ?>
-          <a href="index.php" class="btn btn-info">戻る</a>
+          <a href="index.php">戻る</a>
         </div>
       </div>
+      <br>
     </div>
     <footer class="footer font-small bg-dark">
       <div class="footer-copyright text-center py-3 text-light">&copy; HAL hair</div>

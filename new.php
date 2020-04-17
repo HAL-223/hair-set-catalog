@@ -12,8 +12,8 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $category_id = $_POST['category_id'];
-  $user_id = $_POST['id'];
-  $image = $_POST['image'];
+  $user_id = $_SESSION['id'];
+  $picture = $_POST['picture'];
   $body = $_POST['body'];
 
   $errors = [];
@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors[] = 'カテゴリーが未選択です';
   }
 
-  if ($image) {
-    $ext = substr($image, -4);
+  if ($picture) {
+    $ext = substr($picture, -4);
     if ($ext == '.gif' || $ext == '.jpg' || $ext == '.png') {
       $filePath = './style_img/' . $file['name'];
       $success = move_uploaded_file($file['tmp_name'], $filePath);
@@ -39,14 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     (
       category_id,
       user_id,
-      image,
+      picture,
       body
     )
     values
     (
       :category_id,
       :user_id,
-      :image,
+      :picture,
       :body
     )
     SQL;
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-    $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+    $stmt->bindParam(':picture', $picture, PDO::PARAM_STR);
     $stmt->bindParam(':body', $body, PDO::PARAM_STR);
     $stmt->execute();
   }
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <?php endif; ?>
               <form action="new.php" method="post">
                 <div class="form-group">
-                  <input type="file" name="image" id="">
+                  <input type="file" name="picture" id="">
                 </div>
                 <div class="form-group">
                   <label for="category_id">Category</label>
